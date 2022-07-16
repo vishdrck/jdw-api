@@ -6,6 +6,6 @@ export class CreateUserDTO {
   nic: string;
   gender: string;
   address: string;
-  courseId: string;
-  subjectId: string;
+  courseId?: string;
+  subjectId?: string;
 }
