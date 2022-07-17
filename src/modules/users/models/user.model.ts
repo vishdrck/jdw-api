@@ -41,6 +41,7 @@ export const schemaUser = new Schema<IUserModel>({
   },
   gender: {
     type: String,
+    required: false,
     enum: GENDER_TYPES,
   },
   userType: {
@@ -49,6 +50,7 @@ export const schemaUser = new Schema<IUserModel>({
   },
   accountStatus: {
     type: String,
+    default: ACCOUNT_STATES.NEW,
     enum: ACCOUNT_STATES,
   },
 });

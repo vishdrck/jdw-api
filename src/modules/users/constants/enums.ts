@@ -13,4 +13,5 @@ export enum ACCOUNT_STATES {
 export enum GENDER_TYPES {
   MALE = 'male',
   FEMALE = 'female',
+  NOT_SPECIFIED = 'not_specified',
 }

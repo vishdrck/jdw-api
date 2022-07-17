@@ -1,30 +1,92 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UnauthorizedException } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { ApiTags } from '@nestjs/swagger';
+import { request } from 'http';
+import { RESPONSE_MESSAGES } from 'src/modules/common/constants/enums';
+import { ApiDocGenerator } from 'src/modules/common/decorators/api-doc-generator.decorator';
+import { ACCOUNT_STATES, GENDER_TYPES, USER_TYPES } from 'src/modules/users/constants/enums';
+import { IUser } from 'src/modules/users/models/user.model';
+import { UsersService } from 'src/modules/users/services/users.service';
+import { LoginRequestDTO } from '../dto/login-reqquest.dto';
+import { LoginResponseDTO } from '../dto/login-response.dto';
+import { SelfRegisterDTO } from '../dto/self-register.dto';
+import { AccessCredentialsService } from '../services/access_credential.service';
+import { AuthService } from '../services/auth.service';
 
-import { CreateAuthorizationDto } from '../dto/create-authorization.dto';
-import { UpdateAuthorizationDto } from '../dto/update-authorization.dto';
-import { AuthorizationService } from '../services/authorization.service';
+// import { AuthorizationService } from '../services/access_credential.service';
 
-@Controller('authorization')
+@ApiTags('auth')
+@Controller('auth')
 export class AuthorizationController {
-  // constructor(private readonly authorizationService: AuthorizationService) {}
-  // @Post()
-  // create(@Body() createAuthorizationDto: CreateAuthorizationDto) {
-  //   return this.authorizationService.create(createAuthorizationDto);
-  // }
-  // @Get()
-  // findAll() {
-  //   return this.authorizationService.findAll();
-  // }
-  // @Get(':id')
-  // findOne(@Param('id') id: string) {
-  //   return this.authorizationService.findOne(+id);
-  // }
-  // @Patch(':id')
-  // update(@Param('id') id: string, @Body() updateAuthorizationDto: UpdateAuthorizationDto) {
-  //   return this.authorizationService.update(+id, updateAuthorizationDto);
-  // }
-  // @Delete(':id')
-  // remove(@Param('id') id: string) {
-  //   return this.authorizationService.remove(+id);
-  // }
+  constructor(private accessCredentialsService: AccessCredentialsService, private userService: UsersService, private authService: AuthService, private config: ConfigService) {}
+
+  @ApiDocGenerator({
+    summary: 'Login and Authorize',
+    unauthorizedResponseDescription: 'Invalid Credentials',
+    forbiddenResponseDescription: 'Account Blocked',
+    successResponseDTO: LoginResponseDTO,
+    useDTOValidations: true,
+  })
+  @Post('login')
+  async loginUser(@Body() requestBody: LoginRequestDTO) {
+    const foundUser = await this.userService.findDocument({ email: requestBody?.email, isDeleted: false });
+
+    if (!foundUser) throw new UnauthorizedException(RESPONSE_MESSAGES.INVALID_CREDENTIALS);
+
+    const foundCredentials = await this.accessCredentialsService.loginUser(foundUser?._id, requestBody?.password);
+
+    if (!foundCredentials) throw new UnauthorizedException(RESPONSE_MESSAGES.INVALID_CREDENTIALS);
+
+    const { access_token } = await this.authService.getTokens(foundUser);
+
+    return {
+      data: {
+        ...foundUser,
+        access_token,
+      },
+    };
+  }
+
+  @ApiDocGenerator({
+    summary: 'Self Register',
+    unprocessableEntityResponseDescription: 'Invalid registration details',
+    forbiddenResponseDescription: 'Account Blocked',
+    successResponseDTO: LoginResponseDTO,
+    useDTOValidations: true,
+  })
+  @Post('register')
+  async selfRegister(@Body() requestBody: SelfRegisterDTO) {
+    const existUser = await this.userService.findDocument({ email: requestBody?.email, isDeleted: false });
+
+    if (existUser) {
+      return {
+        message: 'An user with given email is already exist.',
+      };
+    }
+
+    if (requestBody?.gender?.toLocaleLowerCase() === 'male') {
+      requestBody.gender = GENDER_TYPES.MALE;
+    } else if (requestBody?.gender?.toLocaleLowerCase() === 'female') {
+      requestBody.gender = GENDER_TYPES.FEMALE;
+    } else {
+      requestBody.gender = GENDER_TYPES.NOT_SPECIFIED;
+    }
+
+    const newUser: IUser = {
+      ...requestBody,
+      userType: USER_TYPES.LEARNER,
+      accountStatus: ACCOUNT_STATES.NEW,
+    };
+
+    const userOnDatabase = await this.userService.addDocument(newUser);
+    if (userOnDatabase) {
+      return {
+        message: 'User registered successfully',
+      };
+    } else {
+      return {
+        message: 'Something went wrong. Try again lator',
+      };
+    }
+  }
 }

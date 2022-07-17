@@ -1,18 +1,18 @@
 import { yellow, green, blue, red } from 'chalk';
 import * as moment from 'moment';
-import { DB_COLLECTIONS } from 'src/constants/enums';
+import { DB_COLLECTIONS } from 'src/modules/common/constants/enums';
 
 const info = (message: string, module = ''): void => {
   const moduleName = module ? yellow(`[${module}] `) : '';
   if (message?.trim()?.length > 0) {
-    console.log(`${green('[Nest] 00000  -')} ${moment().format('DD/MM/YYYY, LTS')}     ${green('LOG')} ${moduleName}${blue(message)}`);
+    console.log(`${green('[Nest] ' + process.pid + '  -')} ${moment().format('DD/MM/YYYY, LTS')}     ${green('LOG')} ${moduleName}${blue(message)}`);
   }
 };
 
 const error = (message: string, module = ''): void => {
   const moduleName = module ? yellow(`[${module}] `) : '';
   if (message?.trim()?.length > 0) {
-    console.log(`${red('[Nest] 00000  -')} ${moment().format('DD/MM/YY, LTS')}     ${red('ERROR')} ${moduleName}${red(message)}`);
+    console.log(`${red('[Nest] ' + process.pid + '  -')} ${moment().format('DD/MM/YY, LTS')}     ${red('ERROR')} ${moduleName}${red(message)}`);
   }
 };
 

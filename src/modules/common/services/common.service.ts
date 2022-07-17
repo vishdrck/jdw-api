@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Model, Document, FilterQuery, QueryOptions, Types } from 'mongoose';
-import { DB_COLLECTIONS } from 'src/constants/enums';
+import { DB_COLLECTIONS } from 'src/modules/common/constants/enums';
 import { IBaseEntity } from '../models/base-entity.model';
 
 @Injectable()

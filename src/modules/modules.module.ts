@@ -5,5 +5,6 @@ import { AuthorizationModule } from './authorization/authorization.module';
 
 @Module({
   imports: [UsersModule, CommonModule, AuthorizationModule],
+  exports: [],
 })
 export class ModulesModule {}

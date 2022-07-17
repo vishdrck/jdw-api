@@ -1,4 +1,4 @@
-import { CONFIG_KEYS } from 'src/constants/enums';
+import { CONFIG_KEYS } from 'src/modules/common/constants/enums';
 
 function getMongooseConnection() {
   const DB_NAME = process.env.DB_NAME;

@@ -4,7 +4,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ModulesModule } from './modules/modules.module';
 import { MongooseModule } from '@nestjs/mongoose';
-import { CONFIG_KEYS } from './constants/enums';
+import { CONFIG_KEYS } from './modules/common/constants/enums';
 import configurations from './modules/common/config';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { ResponseInterceptor } from './modules/common/interceptors/response.interceptor';

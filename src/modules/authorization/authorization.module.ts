@@ -1,13 +1,16 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
-import { DB_COLLECTIONS } from 'src/constants/enums';
+import { DB_COLLECTIONS } from 'src/modules/common/constants/enums';
 import { AuthorizationController } from './controllers/authorization.controller';
-import { AuthorizationService } from './services/authorization.service';
+import { AccessCredentialsService } from './services/access_credential.service';
+import { AuthService } from './services/auth.service';
+import { UsersModule } from '../users/users.module';
 import mongooseForFeatureHelper from '../common/helpers/mongoose-for-feature.helper';
 
 @Module({
-  imports: [mongooseForFeatureHelper.getCollections([DB_COLLECTIONS.ACCESS_CREDENTIALS, DB_COLLECTIONS.REFRESH_TOKENS]), JwtModule.register({})],
+  imports: [mongooseForFeatureHelper.getCollections([DB_COLLECTIONS.ACCESS_CREDENTIALS]), JwtModule.register({}), forwardRef(() => UsersModule)],
   controllers: [AuthorizationController],
-  providers: [AuthorizationService],
+  providers: [AccessCredentialsService, AuthService],
+  exports: [AccessCredentialsService],
 })
 export class AuthorizationModule {}
