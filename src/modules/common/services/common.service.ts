@@ -1,26 +1,41 @@
 import { Injectable } from '@nestjs/common';
-import { CreateCommonDto } from '../dto/create-common.dto';
-import { UpdateCommonDto } from '../dto/update-common.dto';
+import { Model, Document, FilterQuery, QueryOptions, Types } from 'mongoose';
+import { DB_COLLECTIONS } from 'src/constants/enums';
+import { IBaseEntity } from '../models/base-entity.model';
 
 @Injectable()
-export class CommonService {
-  create(createCommonDto: CreateCommonDto) {
-    return 'This action adds a new common';
+export abstract class CommonService<T extends IBaseEntity> {
+  constructor(private mongooseModel: Model<T & Document>, private model: DB_COLLECTIONS) {}
+
+  async addDocument(doc: T, populate: string[] = []): Promise<T> {
+    const newDoc = await this.mongooseModel.create(doc);
+    newDoc.populate(populate);
+    return newDoc.toObject() as T;
   }
 
-  findAll() {
-    return `This action returns all common`;
+  async updateDocument(doc: T, populate: string[] = [], filter: FilterQuery<T> = { _id: doc._id }): Promise<T> {
+    const newDoc: T = {
+      ...doc,
+      updatedOn: new Date(),
+    };
+
+    return (await this.mongooseModel.findOneAndUpdate(filter, newDoc, { new: true, populate }).exec())?.toObject() as T;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} common`;
+  async filterDocuments(filter: FilterQuery<T> = {}, options: QueryOptions = {}): Promise<T[]> {
+    return await this.mongooseModel.find(filter, {}, options).exec();
   }
 
-  update(id: number, updateCommonDto: UpdateCommonDto) {
-    return `This action updates a #${id} common`;
+  async findDocument(filter: FilterQuery<T> = {}, options: QueryOptions = {}): Promise<T | null> {
+    return (await this.mongooseModel.findOne(filter, {}, options)?.exec())?.toObject() as T | null;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} common`;
+  async findById(id: string | Types.ObjectId): Promise<T | null> {
+    return (await this.mongooseModel.findById(id)?.exec())?.toObject() as T | null;
+  }
+
+  // use only for roleback purposes
+  async findAndHardDelete(id: string | Types.ObjectId): Promise<T | null> {
+    return (await this.mongooseModel.findByIdAndDelete(id)?.exec())?.toObject() as T | null;
   }
 }

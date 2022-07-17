@@ -1,5 +1,6 @@
 export enum CONFIG_KEYS {
   NODE_ENV = 'NODE_ENV',
+  DB_URL = 'DB_URL',
   PORT = 'PORT',
   DB_NAME = 'DB_NAME',
   DB_USERNAME = 'DB_USERNAME',
@@ -10,8 +11,11 @@ export enum CONFIG_KEYS {
   SYSTEM_DESCRIPTION = 'SYSTEM_DESCRIPTION',
   VERSION = 'VERSION',
   WEB_URL = 'WEB_URL',
+  JWT_SECRET = 'JWT_SECRET',
 }
 
 export enum DB_COLLECTIONS {
   USERS = 'users',
+  ACCESS_CREDENTIALS = 'access_credentials',
+  REFRESH_TOKENS = 'refresh_tokens',
 }

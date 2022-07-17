@@ -1,7 +1,4 @@
-import {
-  BaseEntitySchemaContent,
-  IBaseEntity,
-} from 'src/modules/common/models/base-entity.model';
+import { BaseEntitySchemaContent, IBaseEntity } from 'src/modules/common/models/base-entity.model';
 import { ACCOUNT_STATES, USER_TYPES, GENDER_TYPES } from '../constants/enums';
 import { Document, Schema } from 'mongoose';
 

@@ -1,10 +1,10 @@
 import { Types } from 'mongoose';
 
 export interface IBaseEntity {
-  _id: Types.ObjectId;
-  createdOn: Date;
-  updatedOn: Date;
-  isDeleted: boolean;
+  _id?: Types.ObjectId;
+  createdOn?: Date;
+  updatedOn?: Date;
+  isDeleted?: boolean;
 }
 
 export const BaseEntitySchemaContent = {

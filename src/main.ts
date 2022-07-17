@@ -4,7 +4,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import { CONFIG_KEYS } from 'src/constants/enums';
 import { ValidationPipe } from '@nestjs/common';
-import logsHelper from './helpers/logs.helper';
+import logsHelper from './modules/common/helpers/logs.helper';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
