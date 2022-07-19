@@ -3,6 +3,7 @@ import { DB_COLLECTIONS } from 'src/modules/common/constants/enums';
 import { schemaAccessCredentials } from 'src/modules/authorization/models/access_credentials.model';
 import { schemaRefreshToken } from 'src/modules/authorization/models/refresh_tokens.model';
 import { schemaUser } from 'src/modules/users/models/user.model';
+import { schemaInstitute } from 'src/modules/institute/model/intitute.model';
 
 const getCollections = (collections: DB_COLLECTIONS[]) => {
   if (!collections || collections.length === 0) {
@@ -18,6 +19,8 @@ const getCollections = (collections: DB_COLLECTIONS[]) => {
           return { name, schema: schemaAccessCredentials };
         case DB_COLLECTIONS.REFRESH_TOKENS:
           return { name, schema: schemaRefreshToken };
+        case DB_COLLECTIONS.INSTITUTES:
+          return { name, schema: schemaInstitute };
         default:
           throw new Error('Invalid collection name or invalid Schema mapping');
       }
