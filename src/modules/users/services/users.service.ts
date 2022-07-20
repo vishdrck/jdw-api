@@ -27,7 +27,7 @@ export class UsersService extends CommonService<IUser> implements OnModuleInit {
         firstName: 'JDW Admin',
         email: 'vish.drck@gmail.com',
         gender: GENDER_TYPES.MALE,
-        userType: USER_TYPES.SUPER_ADMIN,
+        userType: USER_TYPES.ADMIN,
         accountStatus: ACCOUNT_STATES.VERIFIED,
       };
       const defaultUserOnDatabase = this.addDocument(defaultUser);

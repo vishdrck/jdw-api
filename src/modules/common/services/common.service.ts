@@ -13,6 +13,10 @@ export abstract class CommonService<T extends IBaseEntity> {
     return newDoc.toObject() as T;
   }
 
+  getModel() {
+    return this.mongooseModel;
+  }
+
   async updateDocument(doc: T, populate: string[] = [], filter: FilterQuery<T> = { _id: doc._id }): Promise<T> {
     const newDoc: T = {
       ...doc,

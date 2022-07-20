@@ -11,7 +11,7 @@ import { Types } from 'mongoose';
 import { RESPONSE_MESSAGES } from 'src/modules/common/constants/enums';
 import e from 'express';
 
-@ApiTags('intitutes')
+@ApiTags('institutes')
 @Controller('institute')
 export class InstituteController {
   constructor(private readonly instituteService: InstituteService) {}
