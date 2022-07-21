@@ -7,7 +7,11 @@ import { GENDER_TYPES, USER_TYPES, ACCOUNT_STATES } from '../constants/enums';
 import { IUser } from '../models/user.model';
 import { RESPONSE_MESSAGES } from 'src/modules/common/constants/enums';
 import { DeleteMultipleUsersDTO } from '../dto/delete-multiple-users.dto';
+import { ApiTags } from '@nestjs/swagger';
+import { UserResponseDTO } from '../dto/user-response.dto';
+import { Types } from 'mongoose';
 
+@ApiTags('users')
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
@@ -98,5 +102,23 @@ export class UsersController {
         message: 'Something went wrong. Try again lator',
       };
     }
+  }
+
+  @ApiDocGenerator({
+    summary: 'Get single user',
+    unprocessableEntityResponseDescription: 'Invalid user ids',
+    forbiddenResponseDescription: 'Account Blocked',
+    successResponseDTO: UserResponseDTO,
+    useDTOValidations: true,
+  })
+  @Get(':id')
+  async getUser(@Param(':id') id: string) {
+    const user = await this.usersService.findById(new Types.ObjectId(id));
+
+    if (!user) throw new NotFoundException('User not found');
+
+    return {
+      data: user,
+    };
   }
 }
