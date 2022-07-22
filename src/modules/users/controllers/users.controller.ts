@@ -90,8 +90,8 @@ export class UsersController {
   @Delete()
   async deleteMultiple(@Body() requestBody: DeleteMultipleUsersDTO) {
     const response = await this.usersService
-      .getModel()
-      .updateMany({ _id: { $in: requestBody.userIds } }, { $set: { isDeleted: true } })
+      ?.getModel()
+      ?.updateMany({ _id: { $in: requestBody.userIds } }, { $set: { isDeleted: true } })
       ?.exec();
     if (response) {
       return {

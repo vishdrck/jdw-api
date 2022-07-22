@@ -20,6 +20,7 @@ export enum DB_COLLECTIONS {
   ACCESS_CREDENTIALS = 'access_credentials',
   REFRESH_TOKENS = 'refresh_tokens',
   INSTITUTES = 'institutes',
+  COURSES = 'courses',
 }
 
 export enum RESPONSE_MESSAGES {

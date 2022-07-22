@@ -4,6 +4,7 @@ import { schemaAccessCredentials } from 'src/modules/authorization/models/access
 import { schemaRefreshToken } from 'src/modules/authorization/models/refresh_tokens.model';
 import { schemaUser } from 'src/modules/users/models/user.model';
 import { schemaInstitute } from 'src/modules/institute/model/intitute.model';
+import { schemaCourse } from 'src/modules/course/model/course.model';
 
 const getCollections = (collections: DB_COLLECTIONS[]) => {
   if (!collections || collections.length === 0) {
@@ -21,6 +22,8 @@ const getCollections = (collections: DB_COLLECTIONS[]) => {
           return { name, schema: schemaRefreshToken };
         case DB_COLLECTIONS.INSTITUTES:
           return { name, schema: schemaInstitute };
+        case DB_COLLECTIONS.COURSES:
+          return { name, schema: schemaCourse };
         default:
           throw new Error('Invalid collection name or invalid Schema mapping');
       }
