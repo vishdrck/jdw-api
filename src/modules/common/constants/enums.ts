@@ -21,6 +21,7 @@ export enum DB_COLLECTIONS {
   REFRESH_TOKENS = 'refresh_tokens',
   INSTITUTES = 'institutes',
   COURSES = 'courses',
+  INTAKES = 'intakes',
 }
 
 export enum RESPONSE_MESSAGES {
