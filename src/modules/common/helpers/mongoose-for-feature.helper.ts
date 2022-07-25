@@ -33,6 +33,10 @@ const getCollections = (collections: DB_COLLECTIONS[]) => {
           return { name, schema: schemaCourseIntake };
         case DB_COLLECTIONS.MATERIALS:
           return { name, schema: schemaMaterial };
+        case DB_COLLECTIONS.ATTENDANCE:
+          return { name, schema: schemaAttendance };
+        case DB_COLLECTIONS.ENROLLEMENT:
+          return { name, schema: schemaEnrollment };
         default:
           throw new Error('Invalid collection name or invalid Schema mapping');
       }
