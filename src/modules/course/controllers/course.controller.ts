@@ -38,6 +38,7 @@ export class CourseController {
       };
     } else {
       return {
+        sucess: false,
         message: 'Something went wrong',
       };
     }
@@ -70,6 +71,7 @@ export class CourseController {
       };
     } else {
       return {
+        sucess: false,
         message: 'Something went wrong',
       };
     }
@@ -94,6 +96,7 @@ export class CourseController {
       };
     } else {
       return {
+        sucess: false,
         message: 'Something went wrong',
       };
     }

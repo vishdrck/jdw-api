@@ -5,9 +5,10 @@ import { AuthorizationModule } from './authorization/authorization.module';
 import { InstituteModule } from './institute/institute.module';
 import { CourseModule } from './course/course.module';
 import { IntakeModule } from './intake/intake.module';
+import { CourseIntakeModule } from './course-intake/course-intake.module';
 
 @Module({
-  imports: [UsersModule, CommonModule, AuthorizationModule, InstituteModule, CourseModule, IntakeModule],
+  imports: [UsersModule, CommonModule, AuthorizationModule, InstituteModule, CourseModule, IntakeModule, CourseIntakeModule],
   exports: [],
 })
 export class ModulesModule {}

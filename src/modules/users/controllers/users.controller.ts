@@ -50,6 +50,7 @@ export class UsersController {
       };
     } else {
       return {
+        sucess: false,
         message: 'Something went wrong. Try again lator',
       };
     }
@@ -76,6 +77,7 @@ export class UsersController {
       };
     } else {
       return {
+        sucess: false,
         message: 'Something went wrong. Try again lator',
       };
     }
@@ -99,6 +101,7 @@ export class UsersController {
       };
     } else {
       return {
+        sucess: false,
         message: 'Something went wrong. Try again lator',
       };
     }

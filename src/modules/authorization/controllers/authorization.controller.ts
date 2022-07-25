@@ -85,6 +85,7 @@ export class AuthorizationController {
       };
     } else {
       return {
+        sucess: false,
         message: 'Something went wrong. Try again lator',
       };
     }
