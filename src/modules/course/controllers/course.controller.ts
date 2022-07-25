@@ -38,7 +38,7 @@ export class CourseController {
       };
     } else {
       return {
-        sucess: false,
+        success: false,
         message: 'Something went wrong',
       };
     }
@@ -71,7 +71,7 @@ export class CourseController {
       };
     } else {
       return {
-        sucess: false,
+        success: false,
         message: 'Something went wrong',
       };
     }
@@ -96,7 +96,7 @@ export class CourseController {
       };
     } else {
       return {
-        sucess: false,
+        success: false,
         message: 'Something went wrong',
       };
     }
@@ -109,7 +109,7 @@ export class CourseController {
     successResponseDTO: UpdateCourseDto,
     useDTOValidations: true,
   })
-  @Delete(':id')
+  @Get(':id')
   async get(@Param(':id') id: string) {
     const foundCourse = await this.courseService.findById(new Types.ObjectId(id));
 

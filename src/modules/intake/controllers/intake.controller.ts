@@ -37,7 +37,7 @@ export class IntakeController {
       };
     } else {
       return {
-        sucess: false,
+        success: false,
         message: 'Something went wrong',
       };
     }
@@ -71,7 +71,7 @@ export class IntakeController {
       };
     } else {
       return {
-        sucess: false,
+        success: false,
         message: 'Something went wrong',
       };
     }
@@ -100,7 +100,7 @@ export class IntakeController {
       };
     } else {
       return {
-        sucess: false,
+        success: false,
         message: 'Something went wrong',
       };
     }
@@ -124,7 +124,7 @@ export class IntakeController {
       };
     } else {
       return {
-        sucess: false,
+        success: false,
         message: 'Something went wrong',
       };
     }

@@ -45,12 +45,12 @@ export class UsersController {
     const userOnDatabase = await this.usersService.addDocument(newUser);
     if (userOnDatabase) {
       return {
-        message: 'User updated sucessfully',
+        message: 'User updated successfully',
         data: userOnDatabase,
       };
     } else {
       return {
-        sucess: false,
+        success: false,
         message: 'Something went wrong. Try again lator',
       };
     }
@@ -73,11 +73,11 @@ export class UsersController {
     const userOnDatabase = await this.usersService.addDocument(existUser);
     if (userOnDatabase) {
       return {
-        message: 'User deleted sucessfully',
+        message: 'User deleted successfully',
       };
     } else {
       return {
-        sucess: false,
+        success: false,
         message: 'Something went wrong. Try again lator',
       };
     }
@@ -97,11 +97,11 @@ export class UsersController {
       ?.exec();
     if (response) {
       return {
-        message: 'Users deleted sucessfully',
+        message: 'Users deleted successfully',
       };
     } else {
       return {
-        sucess: false,
+        success: false,
         message: 'Something went wrong. Try again lator',
       };
     }

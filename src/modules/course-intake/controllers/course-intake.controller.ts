@@ -5,6 +5,7 @@ import { ApiDocGenerator } from 'src/modules/common/decorators/api-doc-generator
 import { CourseService } from 'src/modules/course/services/course.service';
 import { IntakeService } from 'src/modules/intake/services/intake.service';
 import { CreateCourseIntakeDto } from '../dto/create-course-intake.dto';
+import { CreateResponseCourseIntakeDto } from '../dto/create-response-course-intake.dto';
 import { ICourseIntake } from '../models/course-intake.model';
 
 import { CourseIntakeService } from '../services/course-intake.service';
@@ -18,6 +19,7 @@ export class CourseIntakeController {
     summary: 'Create a course intake',
     unauthorizedResponseDescription: 'Invalid Credentials',
     forbiddenResponseDescription: 'Account Blocked',
+    successResponseDTO: CreateResponseCourseIntakeDto,
     useDTOValidations: true,
   })
   @Post()
@@ -44,7 +46,7 @@ export class CourseIntakeController {
       };
     } else {
       return {
-        sucess: false,
+        success: false,
         message: 'Something went wrong',
       };
     }

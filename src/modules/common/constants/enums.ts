@@ -23,6 +23,7 @@ export enum DB_COLLECTIONS {
   COURSES = 'courses',
   INTAKES = 'intakes',
   COURSE_INTAKES = 'course_intakes',
+  MATERIALS = 'materials',
 }
 
 export enum RESPONSE_MESSAGES {

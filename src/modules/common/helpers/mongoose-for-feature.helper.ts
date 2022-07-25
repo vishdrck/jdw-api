@@ -6,6 +6,8 @@ import { schemaUser } from 'src/modules/users/models/user.model';
 import { schemaInstitute } from 'src/modules/institute/model/intitute.model';
 import { schemaCourse } from 'src/modules/course/model/course.model';
 import { schemaIntake } from 'src/modules/intake/model/intake.model';
+import { schemaCourseIntake } from 'src/modules/course-intake/models/course-intake.model';
+import { schemaMaterial } from 'src/modules/material/models/materials.model';
 
 const getCollections = (collections: DB_COLLECTIONS[]) => {
   if (!collections || collections.length === 0) {
@@ -27,6 +29,10 @@ const getCollections = (collections: DB_COLLECTIONS[]) => {
           return { name, schema: schemaCourse };
         case DB_COLLECTIONS.INTAKES:
           return { name, schema: schemaIntake };
+        case DB_COLLECTIONS.COURSE_INTAKES:
+          return { name, schema: schemaCourseIntake };
+        case DB_COLLECTIONS.MATERIALS:
+          return { name, schema: schemaMaterial };
         default:
           throw new Error('Invalid collection name or invalid Schema mapping');
       }

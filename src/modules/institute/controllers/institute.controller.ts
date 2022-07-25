@@ -37,7 +37,7 @@ export class InstituteController {
       };
     } else {
       return {
-        sucess: false,
+        success: false,
         message: 'Something went wrong',
       };
     }
@@ -114,7 +114,7 @@ export class InstituteController {
       };
     } else {
       return {
-        sucess: false,
+        success: false,
         message: 'Something went wrong',
       };
     }
