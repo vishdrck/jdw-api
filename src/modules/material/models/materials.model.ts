@@ -22,6 +22,7 @@ export const schemaMaterial = new Schema<IMaterial>({
     ref: DB_COLLECTIONS.INTAKES,
   },
   type: {
+    type: String,
     enum: FILE_TYPES,
   },
   url: {

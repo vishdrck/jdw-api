@@ -8,10 +8,10 @@ import { IEnrollment, IEnrollmentModel } from '../models/enrollment.model';
 @Injectable()
 export class EnrollmentService extends CommonService<IEnrollment> {
   constructor(
-    @InjectModel(DB_COLLECTIONS.ENROLLEMENT)
+    @InjectModel(DB_COLLECTIONS.ENROLLMENT)
     enrollmentModel: Model<IEnrollmentModel>,
   ) {
-    super(enrollmentModel, DB_COLLECTIONS.ENROLLEMENT);
+    super(enrollmentModel, DB_COLLECTIONS.ENROLLMENT);
   }
   onModuleInit() {
     return;

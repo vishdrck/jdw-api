@@ -14,7 +14,7 @@ export const schemaAttendance = new Schema<IAttendance>({
   ...BaseEntitySchemaContent,
   enrollmentId: {
     type: Schema.Types.ObjectId,
-    ref: DB_COLLECTIONS.ENROLLEMENT,
+    ref: DB_COLLECTIONS.ENROLLMENT,
   },
   clockInDateTime: {
     type: Date,

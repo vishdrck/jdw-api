@@ -25,7 +25,7 @@ export enum DB_COLLECTIONS {
   COURSE_INTAKES = 'course_intakes',
   MATERIALS = 'materials',
   ATTENDANCE = 'attendances',
-  ENROLLEMENT = 'enrollments',
+  ENROLLMENT = 'enrollments',
 }
 
 export enum RESPONSE_MESSAGES {

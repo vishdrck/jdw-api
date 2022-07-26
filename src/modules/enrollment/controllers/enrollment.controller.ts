@@ -10,7 +10,7 @@ import { EnrollmentService } from '../services/enrollment.service';
 @ApiTags('enrollments')
 @Controller('enrollment')
 export class EnrollmentController {
-  constructor(private readonly enrollmentService: EnrollmentService, private readonly usersService, private readonly courseService) {}
+  constructor(private readonly enrollmentService: EnrollmentService) {}
 
   @ApiDocGenerator({
     summary: 'Create an enrollment',
@@ -21,12 +21,6 @@ export class EnrollmentController {
   })
   @Post()
   async create(@Body() requestBody: CreateEnrollmentDto) {
-    const foundCourse = await this.courseService.findById(new Types.ObjectId(requestBody.courseId));
-    if (!foundCourse) throw new NotFoundException('Course not found');
-
-    const foundUser = await this.usersService.findById(new Types.ObjectId(requestBody.userId));
-    if (!foundUser) throw new NotFoundException('User not found');
-
     const newEnrollement: IEnrollment = {
       ...requestBody,
       enrolledDate: new Date(Date.now()),
