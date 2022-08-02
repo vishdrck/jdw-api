@@ -16,41 +16,46 @@ export interface IUser extends IBaseEntity {
 
 export type IUserModel = IUser & Document;
 
-export const schemaUser = new Schema<IUserModel>({
-  ...BaseEntitySchemaContent,
-  firstName: {
-    type: String,
-    required: true,
+export const schemaUser = new Schema<IUserModel>(
+  {
+    ...BaseEntitySchemaContent,
+    firstName: {
+      type: String,
+      required: true,
+    },
+    lastName: {
+      type: String,
+      required: false,
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    contactNo: {
+      type: String,
+      required: false,
+    },
+    address: {
+      type: String,
+      required: false,
+    },
+    gender: {
+      type: String,
+      required: false,
+      enum: GENDER_TYPES,
+    },
+    userType: {
+      type: String,
+      enum: USER_TYPES,
+    },
+    accountStatus: {
+      type: String,
+      default: ACCOUNT_STATES.NEW,
+      enum: ACCOUNT_STATES,
+    },
   },
-  lastName: {
-    type: String,
-    required: false,
+  {
+    versionKey: false,
   },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  contactNo: {
-    type: String,
-    required: false,
-  },
-  address: {
-    type: String,
-    required: false,
-  },
-  gender: {
-    type: String,
-    required: false,
-    enum: GENDER_TYPES,
-  },
-  userType: {
-    type: String,
-    enum: USER_TYPES,
-  },
-  accountStatus: {
-    type: String,
-    default: ACCOUNT_STATES.NEW,
-    enum: ACCOUNT_STATES,
-  },
-});
+);

@@ -15,43 +15,48 @@ export interface IInstitute extends IBaseEntity {
 
 export type IInstituteModel = IInstitute & Document;
 
-export const schemaInstitute = new Schema<IInstituteModel>({
-  ...BaseEntitySchemaContent,
-  name: {
-    type: String,
-    required: true,
+export const schemaInstitute = new Schema<IInstituteModel>(
+  {
+    ...BaseEntitySchemaContent,
+    name: {
+      type: String,
+      required: true,
+    },
+    description: {
+      type: String,
+      required: false,
+    },
+    logo: {
+      type: String,
+      required: false,
+    },
+    address: {
+      type: String,
+      required: false,
+    },
+    banner: {
+      type: String,
+      required: false,
+    },
+    contact: {
+      type: String,
+      required: false,
+    },
+    type: {
+      type: String,
+      required: false,
+    },
+    note: {
+      type: String,
+      required: false,
+    },
+    isRegistrationFee: {
+      type: Boolean,
+      required: false,
+      defualt: false,
+    },
   },
-  description: {
-    type: String,
-    required: false,
+  {
+    versionKey: false,
   },
-  logo: {
-    type: String,
-    required: false,
-  },
-  address: {
-    type: String,
-    required: false,
-  },
-  banner: {
-    type: String,
-    required: false,
-  },
-  contact: {
-    type: String,
-    required: false,
-  },
-  type: {
-    type: String,
-    required: false,
-  },
-  note: {
-    type: String,
-    required: false,
-  },
-  isRegistrationFee: {
-    type: Boolean,
-    required: false,
-    defualt: false,
-  },
-});
+);

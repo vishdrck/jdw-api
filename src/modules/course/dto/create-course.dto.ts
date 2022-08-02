@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsArray, IsNotEmpty, IsString } from 'class-validator';
+import { IsArray, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 import { IIntroVideos } from '../model/course.model';
 
 export class CreateCourseDto {
@@ -25,11 +25,11 @@ export class CreateCourseDto {
 
   @ApiProperty({ example: 'courseType' })
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   courseType?: string;
 
   @ApiProperty({ example: 'Note goes here' })
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   note?: string;
 }

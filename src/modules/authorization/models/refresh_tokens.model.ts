@@ -8,14 +8,19 @@ export interface IRefreshToken extends IBaseEntity {
 
 export type IRefreshTokenModel = IRefreshToken & Document;
 
-export const schemaRefreshToken = new Schema<IRefreshTokenModel>({
-  ...BaseEntitySchemaContent,
-  userID: {
-    type: SchemaTypes.ObjectId,
-    required: true,
+export const schemaRefreshToken = new Schema<IRefreshTokenModel>(
+  {
+    ...BaseEntitySchemaContent,
+    userID: {
+      type: SchemaTypes.ObjectId,
+      required: true,
+    },
+    token: {
+      type: String,
+      required: true,
+    },
   },
-  token: {
-    type: String,
-    required: true,
+  {
+    versionKey: false,
   },
-});
+);

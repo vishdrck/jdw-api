@@ -15,30 +15,35 @@ export interface IMaterial extends IBaseEntity {
 
 export type IMaterialModel = IMaterial & Document;
 
-export const schemaMaterial = new Schema<IMaterial>({
-  ...BaseEntitySchemaContent,
-  intakeId: {
-    type: Schema.Types.ObjectId,
-    ref: DB_COLLECTIONS.INTAKES,
+export const schemaMaterial = new Schema<IMaterial>(
+  {
+    ...BaseEntitySchemaContent,
+    intakeId: {
+      type: Schema.Types.ObjectId,
+      ref: DB_COLLECTIONS.INTAKES,
+    },
+    type: {
+      type: String,
+      enum: FILE_TYPES,
+    },
+    url: {
+      type: String,
+      required: false,
+    },
+    title: {
+      type: String,
+      required: true,
+    },
+    description: {
+      type: String,
+      required: false,
+    },
+    note: {
+      type: String,
+      required: false,
+    },
   },
-  type: {
-    type: String,
-    enum: FILE_TYPES,
+  {
+    versionKey: false,
   },
-  url: {
-    type: String,
-    required: false,
-  },
-  title: {
-    type: String,
-    required: true,
-  },
-  description: {
-    type: String,
-    required: false,
-  },
-  note: {
-    type: String,
-    required: false,
-  },
-});
+);

@@ -9,9 +9,10 @@ import { CourseIntakeModule } from './course-intake/course-intake.module';
 import { MaterialModule } from './material/material.module';
 import { AttendanceModule } from './attendance/attendance.module';
 import { EnrollmentModule } from './enrollment/enrollment.module';
+import { PaymentModule } from './payment/payment.module';
 
 @Module({
-  imports: [UsersModule, CommonModule, AuthorizationModule, InstituteModule, CourseModule, IntakeModule, CourseIntakeModule, MaterialModule, AttendanceModule, EnrollmentModule],
+  imports: [UsersModule, CommonModule, AuthorizationModule, InstituteModule, CourseModule, IntakeModule, CourseIntakeModule, MaterialModule, AttendanceModule, EnrollmentModule, PaymentModule],
   exports: [],
 })
 export class ModulesModule {}

@@ -22,29 +22,34 @@ const schemaIntroVideos = new Schema<IIntroVideos>({
 
 export type ICourseModel = ICourse & Document;
 
-export const schemaCourse = new Schema<ICourse>({
-  ...BaseEntitySchemaContent,
-  name: {
-    type: String,
-    required: true,
+export const schemaCourse = new Schema<ICourse>(
+  {
+    ...BaseEntitySchemaContent,
+    name: {
+      type: String,
+      required: true,
+    },
+    description: {
+      type: String,
+      required: true,
+    },
+    bannerImage: {
+      type: String,
+      required: true,
+    },
+    introVideos: {
+      type: [schemaIntroVideos],
+    },
+    courseType: {
+      type: String,
+      required: false,
+    },
+    note: {
+      type: String,
+      required: false,
+    },
   },
-  description: {
-    type: String,
-    required: true,
+  {
+    versionKey: false,
   },
-  bannerImage: {
-    type: String,
-    required: true,
-  },
-  introVideos: {
-    type: [schemaIntroVideos],
-  },
-  courseType: {
-    type: String,
-    required: false,
-  },
-  note: {
-    type: String,
-    required: false,
-  },
-});
+);

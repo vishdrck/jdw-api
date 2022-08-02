@@ -12,31 +12,36 @@ export interface IIntake extends IBaseEntity {
 
 export type IIntakeModel = IIntake & Document;
 
-export const schemaIntake = new Schema<IIntakeModel>({
-  ...BaseEntitySchemaContent,
-  name: {
-    type: String,
-    required: true,
+export const schemaIntake = new Schema<IIntakeModel>(
+  {
+    ...BaseEntitySchemaContent,
+    name: {
+      type: String,
+      required: true,
+    },
+    startDate: {
+      type: Date,
+      required: true,
+    },
+    endDate: {
+      type: Date,
+      required: true,
+    },
+    conferenceLink: {
+      type: String,
+      required: false,
+    },
+    description: {
+      type: String,
+      required: false,
+    },
+    isActive: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
   },
-  startDate: {
-    type: Date,
-    required: true,
+  {
+    versionKey: false,
   },
-  endDate: {
-    type: Date,
-    required: true,
-  },
-  conferenceLink: {
-    type: String,
-    required: false,
-  },
-  description: {
-    type: String,
-    required: false,
-  },
-  isActive: {
-    type: Boolean,
-    required: false,
-    default: false,
-  },
-});
+);

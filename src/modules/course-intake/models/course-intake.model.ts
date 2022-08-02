@@ -13,22 +13,27 @@ export interface ICourseIntake extends IBaseEntity {
 
 export type ICourseIntakeModel = ICourseIntake & Document;
 
-export const schemaCourseIntake = new Schema<ICourseIntake>({
-  ...BaseEntitySchemaContent,
-  courseId: {
-    type: Schema.Types.ObjectId,
-    ref: DB_COLLECTIONS.COURSES,
+export const schemaCourseIntake = new Schema<ICourseIntake>(
+  {
+    ...BaseEntitySchemaContent,
+    courseId: {
+      type: Schema.Types.ObjectId,
+      ref: DB_COLLECTIONS.COURSES,
+    },
+    intakeId: {
+      type: Schema.Types.ObjectId,
+      ref: DB_COLLECTIONS.INTAKES,
+    },
+    coursePayment: {
+      type: Number,
+      required: false,
+    },
+    registrationPayment: {
+      type: Number,
+      required: false,
+    },
   },
-  intakeId: {
-    type: Schema.Types.ObjectId,
-    ref: DB_COLLECTIONS.INTAKES,
+  {
+    versionKey: false,
   },
-  coursePayment: {
-    type: Number,
-    required: false,
-  },
-  registrationPayment: {
-    type: Number,
-    required: false,
-  },
-});
+);

@@ -12,18 +12,23 @@ export interface IEnrollment extends IBaseEntity {
 
 export type IEnrollmentModel = IEnrollment & Document;
 
-export const schemaEnrollement = new Schema<IEnrollment>({
-  ...BaseEntitySchemaContent,
-  userId: {
-    type: Schema.Types.ObjectId,
-    ref: DB_COLLECTIONS.USERS,
+export const schemaEnrollement = new Schema<IEnrollment>(
+  {
+    ...BaseEntitySchemaContent,
+    userId: {
+      type: Schema.Types.ObjectId,
+      ref: DB_COLLECTIONS.USERS,
+    },
+    courseId: {
+      type: Schema.Types.ObjectId,
+      ref: DB_COLLECTIONS.COURSES,
+    },
+    enrolledDate: {
+      type: Date,
+      default: new Date(),
+    },
   },
-  courseId: {
-    type: Schema.Types.ObjectId,
-    ref: DB_COLLECTIONS.COURSES,
+  {
+    versionKey: false,
   },
-  enrolledDate: {
-    type: Date,
-    default: new Date(),
-  },
-});
+);
