@@ -1,12 +1,15 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UnauthorizedException } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UnauthorizedException, NotFoundException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { ApiTags } from '@nestjs/swagger';
 import { request } from 'http';
-import { RESPONSE_MESSAGES } from 'src/modules/common/constants/enums';
+import Mail from 'nodemailer/lib/mailer';
+import { EMAIL_TYPES, RESPONSE_MESSAGES } from 'src/modules/common/constants/enums';
 import { ApiDocGenerator } from 'src/modules/common/decorators/api-doc-generator.decorator';
+import { EmailService } from 'src/modules/common/services/email.service';
 import { ACCOUNT_STATES, GENDER_TYPES, USER_TYPES } from 'src/modules/users/constants/enums';
 import { IUser } from 'src/modules/users/models/user.model';
 import { UsersService } from 'src/modules/users/services/users.service';
+import { ForgotPasswordRequestDTO } from '../dto/forgot-password-request.dto';
 import { LoginRequestDTO } from '../dto/login-reqquest.dto';
 import { LoginResponseDTO } from '../dto/login-response.dto';
 import { SelfRegisterDTO } from '../dto/self-register.dto';
@@ -18,7 +21,13 @@ import { AuthService } from '../services/auth.service';
 @ApiTags('auth')
 @Controller('auth')
 export class AuthorizationController {
-  constructor(private accessCredentialsService: AccessCredentialsService, private userService: UsersService, private authService: AuthService, private config: ConfigService) {}
+  constructor(
+    private accessCredentialsService: AccessCredentialsService,
+    private userService: UsersService,
+    private authService: AuthService,
+    private config: ConfigService,
+    private emailService: EmailService,
+  ) {}
 
   @ApiDocGenerator({
     summary: 'Login and Authorize',
@@ -89,5 +98,25 @@ export class AuthorizationController {
         message: 'Something went wrong. Try again lator',
       };
     }
+  }
+
+  @ApiDocGenerator({
+    summary: 'Forogt Password',
+    unprocessableEntityResponseDescription: 'Invalid registration details',
+    forbiddenResponseDescription: 'Account Blocked',
+    successResponseDTO: LoginResponseDTO,
+    useDTOValidations: true,
+  })
+  @Post('forgot-password')
+  async forgotPassword(@Body() requestBody: ForgotPasswordRequestDTO) {
+    const foundUser = await this.userService.findDocument({ email: requestBody.email });
+
+    if (!foundUser) throw new NotFoundException('User not found');
+
+    const mailOptions: Mail.Options = {
+      to: foundUser.email,
+    };
+
+    this.emailService.sendEmail(mailOptions, EMAIL_TYPES.FORGOT_PASSWORD, 'google.com');
   }
 }

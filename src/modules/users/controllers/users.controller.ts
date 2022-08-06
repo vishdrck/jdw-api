@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Put, NotFoundException } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Put, NotFoundException, UseGuards } from '@nestjs/common';
 import { UsersService } from '../services/users.service';
 import { CreateUserDTO } from '../dto/create-user.dto';
 import { UpdateUserDto } from '../dto/update-user.dto';
@@ -10,6 +10,8 @@ import { DeleteMultipleUsersDTO } from '../dto/delete-multiple-users.dto';
 import { ApiTags } from '@nestjs/swagger';
 import { UserResponseDTO } from '../dto/user-response.dto';
 import { Types } from 'mongoose';
+import { JwtAuthGuard } from 'src/modules/authorization/guards/jwt-auth.guard';
+import { LoggedUser } from 'src/modules/common/decorators/logged-user.decorator';
 
 @ApiTags('users')
 @Controller('users')
@@ -22,9 +24,13 @@ export class UsersController {
     forbiddenResponseDescription: 'Account Blocked',
     successResponseDTO: UpdateUserDto,
     useDTOValidations: true,
+    useBearerAuth: true,
+    useApiKey: true,
   })
+  @UseGuards(JwtAuthGuard)
   @Put(':id')
-  async update(@Param('id') id: string, @Body() requestBody: UpdateUserDto) {
+  async update(@LoggedUser() loggedUser: IUser, @Param('id') id: string, @Body() requestBody: UpdateUserDto) {
+    console.log(loggedUser);
     const existUser = await this.usersService.findDocument({ _id: id, isDeleted: false });
 
     if (existUser) throw new NotFoundException('Requested user not found');
@@ -124,4 +130,7 @@ export class UsersController {
       data: user,
     };
   }
+}
+function LoggedIdentity() {
+  throw new Error('Function not implemented.');
 }

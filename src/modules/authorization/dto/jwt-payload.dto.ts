@@ -1,5 +1,8 @@
 import { Types } from 'mongoose';
 
 export class JwtPayloadDTO {
-  _id: Types.ObjectId;
+  sub: string;
+  uuid: string;
+  iat: number;
+  exp: number;
 }
