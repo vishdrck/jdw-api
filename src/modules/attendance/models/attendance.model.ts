@@ -1,6 +1,9 @@
 import { Document, PopulatedDoc, Schema } from 'mongoose';
 import { DB_COLLECTIONS } from 'src/modules/common/constants/enums';
-import { BaseEntitySchemaContent, IBaseEntity } from 'src/modules/common/models/base-entity.model';
+import {
+  BaseEntitySchemaContent,
+  IBaseEntity,
+} from 'src/modules/common/models/base-entity.model';
 import { IEnrollment } from 'src/modules/enrollment/models/enrollment.model';
 
 export interface IAttendance extends IBaseEntity {

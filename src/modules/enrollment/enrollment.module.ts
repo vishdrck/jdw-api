@@ -7,7 +7,11 @@ import { EnrollmentController } from './controllers/enrollment.controller';
 import { EnrollmentService } from './services/enrollment.service';
 
 @Module({
-  imports: [mongooseForFeatureHelper.getCollections([DB_COLLECTIONS.ENROLLMENT]), UsersModule, CourseModule],
+  imports: [
+    mongooseForFeatureHelper.getCollections([DB_COLLECTIONS.ENROLLMENT]),
+    UsersModule,
+    CourseModule,
+  ],
   controllers: [EnrollmentController],
   providers: [EnrollmentService],
   exports: [EnrollmentService],

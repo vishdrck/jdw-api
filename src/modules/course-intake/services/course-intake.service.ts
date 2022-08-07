@@ -3,10 +3,16 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { DB_COLLECTIONS } from 'src/modules/common/constants/enums';
 import { CommonService } from 'src/modules/common/services/common.service';
-import { ICourseIntake, ICourseIntakeModel } from '../models/course-intake.model';
+import {
+  ICourseIntake,
+  ICourseIntakeModel,
+} from '../models/course-intake.model';
 
 @Injectable()
-export class CourseIntakeService extends CommonService<ICourseIntake> implements OnModuleInit {
+export class CourseIntakeService
+  extends CommonService<ICourseIntake>
+  implements OnModuleInit
+{
   constructor(
     @InjectModel(DB_COLLECTIONS.COURSE_INTAKES)
     courseIntakeModel: Model<ICourseIntakeModel>,

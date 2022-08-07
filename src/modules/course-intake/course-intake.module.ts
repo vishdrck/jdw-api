@@ -7,7 +7,11 @@ import { CourseModule } from '../course/course.module';
 import { IntakeModule } from '../intake/intake.module';
 
 @Module({
-  imports: [mongooseForFeatureHelper.getCollections([DB_COLLECTIONS.COURSE_INTAKES]), CourseModule, IntakeModule],
+  imports: [
+    mongooseForFeatureHelper.getCollections([DB_COLLECTIONS.COURSE_INTAKES]),
+    CourseModule,
+    IntakeModule,
+  ],
   controllers: [CourseIntakeController],
   providers: [CourseIntakeService],
   exports: [CourseIntakeService],

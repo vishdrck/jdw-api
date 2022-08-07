@@ -1,4 +1,7 @@
-import { BaseEntitySchemaContent, IBaseEntity } from 'src/modules/common/models/base-entity.model';
+import {
+  BaseEntitySchemaContent,
+  IBaseEntity,
+} from 'src/modules/common/models/base-entity.model';
 import { Document, Schema } from 'mongoose';
 
 export interface IInstitute extends IBaseEntity {
@@ -11,6 +14,7 @@ export interface IInstitute extends IBaseEntity {
   type?: string;
   note?: string;
   isRegistrationFee?: boolean;
+  registrationFee?: number;
 }
 
 export type IInstituteModel = IInstitute & Document;
@@ -53,7 +57,12 @@ export const schemaInstitute = new Schema<IInstituteModel>(
     isRegistrationFee: {
       type: Boolean,
       required: false,
-      defualt: false,
+      default: false,
+    },
+    registrationFee: {
+      type: Number,
+      required: false,
+      default: 0,
     },
   },
   {

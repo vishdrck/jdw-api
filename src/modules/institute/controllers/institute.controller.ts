@@ -1,4 +1,15 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, HttpException, Put, NotFoundException } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  HttpException,
+  Put,
+  NotFoundException,
+} from '@nestjs/common';
 import { InstituteService } from '../services/institute.service';
 import { CreateInstituteDto } from '../dto/create-institute.dto';
 import { UpdateInstituteDto } from '../dto/update-institute.dto';
@@ -29,7 +40,9 @@ export class InstituteController {
       ...requestBody,
     };
 
-    const newInstituteOnDatabase = await this.instituteService.addDocument(newInstitute);
+    const newInstituteOnDatabase = await this.instituteService.addDocument(
+      newInstitute,
+    );
     if (newInstituteOnDatabase) {
       return {
         message: 'Institute created successfully',
@@ -52,7 +65,9 @@ export class InstituteController {
   })
   @Get(':id')
   async getInstitute(@Param('id') id: string) {
-    const requestedInsititute = await this.instituteService.findById(new Types.ObjectId(id));
+    const requestedInsititute = await this.instituteService.findById(
+      new Types.ObjectId(id),
+    );
     if (requestedInsititute) {
       return {
         message: 'Institute feteched successfully',
@@ -74,7 +89,9 @@ export class InstituteController {
   })
   @Get()
   async getAllInstitute() {
-    const allInstitutes = await this.instituteService.filterDocuments({ isDeleted: false });
+    const allInstitutes = await this.instituteService.filterDocuments({
+      isDeleted: false,
+    });
     if (allInstitutes) {
       return {
         message: 'Institutes feteched successfully',
@@ -95,17 +112,25 @@ export class InstituteController {
     useDTOValidations: true,
   })
   @Put(':id')
-  async updateInstitute(@Body() requestBody: UpdateInstituteDto, @Param('id') id: string) {
-    const foundInstitute = await this.instituteService.findById(new Types.ObjectId(id));
+  async updateInstitute(
+    @Body() requestBody: UpdateInstituteDto,
+    @Param('id') id: string,
+  ) {
+    const foundInstitute = await this.instituteService.findById(
+      new Types.ObjectId(id),
+    );
 
-    if (!foundInstitute) throw new NotFoundException(RESPONSE_MESSAGES.NOT_FOUND);
+    if (!foundInstitute)
+      throw new NotFoundException(RESPONSE_MESSAGES.NOT_FOUND);
 
     const newInstitute: IInstitute = {
       ...foundInstitute,
       ...requestBody,
     };
 
-    const updatedInstitute = await this.instituteService.updateDocument(newInstitute);
+    const updatedInstitute = await this.instituteService.updateDocument(
+      newInstitute,
+    );
 
     if (updatedInstitute) {
       return {

@@ -8,7 +8,10 @@ import { CommonService } from 'src/modules/common/services/common.service';
 import { IInstitute, IInstituteModel } from '../model/intitute.model';
 
 @Injectable()
-export class InstituteService extends CommonService<IInstitute> implements OnModuleInit {
+export class InstituteService
+  extends CommonService<IInstitute>
+  implements OnModuleInit
+{
   constructor(
     @InjectModel(DB_COLLECTIONS.INSTITUTES)
     instituteModel: Model<IInstituteModel>,

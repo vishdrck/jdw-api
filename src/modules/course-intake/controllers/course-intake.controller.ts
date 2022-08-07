@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, NotFoundException } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  NotFoundException,
+} from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { Schema, Types } from 'mongoose';
 import { ApiDocGenerator } from 'src/modules/common/decorators/api-doc-generator.decorator';
@@ -13,7 +22,11 @@ import { CourseIntakeService } from '../services/course-intake.service';
 @ApiTags('course intakes')
 @Controller('course-intake')
 export class CourseIntakeController {
-  constructor(private readonly courseIntakeService: CourseIntakeService, private readonly courseService: CourseService, private readonly intakeService: IntakeService) {}
+  constructor(
+    private readonly courseIntakeService: CourseIntakeService,
+    private readonly courseService: CourseService,
+    private readonly intakeService: IntakeService,
+  ) {}
 
   @ApiDocGenerator({
     summary: 'Create a course intake',
@@ -24,20 +37,31 @@ export class CourseIntakeController {
   })
   @Post()
   async create(@Body() requestBody: CreateCourseIntakeDto) {
-    const foundCourse = await this.courseService.findById(new Types.ObjectId(requestBody?.courseId));
+    const foundCourse = await this.courseService.findById(
+      new Types.ObjectId(requestBody?.courseId),
+    );
 
-    if (!foundCourse) throw new NotFoundException('Requested course not found!');
+    if (!foundCourse)
+      throw new NotFoundException('Requested course not found!');
 
-    const foundIntake = await this.intakeService.findById(new Types.ObjectId(requestBody?.intakeId));
+    const foundIntake = await this.intakeService.findById(
+      new Types.ObjectId(requestBody?.intakeId),
+    );
     if (!foundIntake) throw new NotFoundException('Requsted intake not found');
 
     const newCourseIntake: ICourseIntake = {
       ...requestBody,
-      ...(requestBody.courseId ? { courseId: new Types.ObjectId(requestBody.courseId) } : {}),
-      ...(requestBody.intakeId ? { intakeId: new Types.ObjectId(requestBody.intakeId) } : {}),
+      ...(requestBody.courseId
+        ? { courseId: new Types.ObjectId(requestBody.courseId) }
+        : {}),
+      ...(requestBody.intakeId
+        ? { intakeId: new Types.ObjectId(requestBody.intakeId) }
+        : {}),
     };
 
-    const courseIntakeOnDatabase = await this.courseIntakeService.addDocument(newCourseIntake);
+    const courseIntakeOnDatabase = await this.courseIntakeService.addDocument(
+      newCourseIntake,
+    );
 
     if (courseIntakeOnDatabase) {
       return {

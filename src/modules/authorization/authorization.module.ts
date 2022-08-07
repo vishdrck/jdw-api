@@ -11,7 +11,13 @@ import { EmailService } from '../common/services/email.service';
 import { JWTAccessBearerStrategy } from './strategy/jwt-access-bearer.strategy';
 
 @Module({
-  imports: [mongooseForFeatureHelper.getCollections([DB_COLLECTIONS.ACCESS_CREDENTIALS]), JwtModule.register({}), forwardRef(() => UsersModule)],
+  imports: [
+    mongooseForFeatureHelper.getCollections([
+      DB_COLLECTIONS.ACCESS_CREDENTIALS,
+    ]),
+    JwtModule.register({}),
+    forwardRef(() => UsersModule),
+  ],
   controllers: [AuthorizationController],
   providers: [AccessCredentialsService, AuthService, JWTAccessBearerStrategy],
   exports: [AccessCredentialsService],

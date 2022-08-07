@@ -1,5 +1,8 @@
 import { Document, Schema } from 'mongoose';
-import { BaseEntitySchemaContent, IBaseEntity } from 'src/modules/common/models/base-entity.model';
+import {
+  BaseEntitySchemaContent,
+  IBaseEntity,
+} from 'src/modules/common/models/base-entity.model';
 
 export interface IIntroVideos {
   name: string;
@@ -12,6 +15,7 @@ export interface ICourse extends IBaseEntity {
   bannerImage: string;
   introVideos: IIntroVideos[];
   courseType?: string;
+  courseFee?: number;
   note?: string;
 }
 
@@ -43,6 +47,11 @@ export const schemaCourse = new Schema<ICourse>(
     courseType: {
       type: String,
       required: false,
+    },
+    courseFee: {
+      type: Number,
+      required: false,
+      default: 0,
     },
     note: {
       type: String,

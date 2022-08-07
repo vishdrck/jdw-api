@@ -6,7 +6,10 @@ import { DB_COLLECTIONS } from 'src/modules/common/constants/enums';
 import { AuthorizationModule } from '../authorization/authorization.module';
 
 @Module({
-  imports: [mongooseForFeatureHelper.getCollections([DB_COLLECTIONS.USERS]), forwardRef(() => AuthorizationModule)],
+  imports: [
+    mongooseForFeatureHelper.getCollections([DB_COLLECTIONS.USERS]),
+    forwardRef(() => AuthorizationModule),
+  ],
   controllers: [UsersController],
   providers: [UsersService],
   exports: [UsersService],

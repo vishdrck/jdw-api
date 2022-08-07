@@ -1,12 +1,29 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UnauthorizedException, NotFoundException } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UnauthorizedException,
+  NotFoundException,
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { ApiTags } from '@nestjs/swagger';
 import { request } from 'http';
 import Mail from 'nodemailer/lib/mailer';
-import { EMAIL_TYPES, RESPONSE_MESSAGES } from 'src/modules/common/constants/enums';
+import {
+  EMAIL_TYPES,
+  RESPONSE_MESSAGES,
+} from 'src/modules/common/constants/enums';
 import { ApiDocGenerator } from 'src/modules/common/decorators/api-doc-generator.decorator';
 import { EmailService } from 'src/modules/common/services/email.service';
-import { ACCOUNT_STATES, GENDER_TYPES, USER_TYPES } from 'src/modules/users/constants/enums';
+import {
+  ACCOUNT_STATES,
+  GENDER_TYPES,
+  USER_TYPES,
+} from 'src/modules/users/constants/enums';
 import { IUser } from 'src/modules/users/models/user.model';
 import { UsersService } from 'src/modules/users/services/users.service';
 import { ForgotPasswordRequestDTO } from '../dto/forgot-password-request.dto';
@@ -38,13 +55,21 @@ export class AuthorizationController {
   })
   @Post('login')
   async loginUser(@Body() requestBody: LoginRequestDTO) {
-    const foundUser = await this.userService.findDocument({ email: requestBody?.email, isDeleted: false });
+    const foundUser = await this.userService.findDocument({
+      email: requestBody?.email,
+      isDeleted: false,
+    });
 
-    if (!foundUser) throw new UnauthorizedException(RESPONSE_MESSAGES.INVALID_CREDENTIALS);
+    if (!foundUser)
+      throw new UnauthorizedException(RESPONSE_MESSAGES.INVALID_CREDENTIALS);
 
-    const foundCredentials = await this.accessCredentialsService.loginUser(foundUser?._id, requestBody?.password);
+    const foundCredentials = await this.accessCredentialsService.loginUser(
+      foundUser?._id,
+      requestBody?.password,
+    );
 
-    if (!foundCredentials) throw new UnauthorizedException(RESPONSE_MESSAGES.INVALID_CREDENTIALS);
+    if (!foundCredentials)
+      throw new UnauthorizedException(RESPONSE_MESSAGES.INVALID_CREDENTIALS);
 
     const { access_token } = await this.authService.getTokens(foundUser);
 
@@ -65,7 +90,10 @@ export class AuthorizationController {
   })
   @Post('register')
   async selfRegister(@Body() requestBody: SelfRegisterDTO) {
-    const existUser = await this.userService.findDocument({ email: requestBody?.email, isDeleted: false });
+    const existUser = await this.userService.findDocument({
+      email: requestBody?.email,
+      isDeleted: false,
+    });
 
     if (existUser) {
       return {
@@ -109,7 +137,9 @@ export class AuthorizationController {
   })
   @Post('forgot-password')
   async forgotPassword(@Body() requestBody: ForgotPasswordRequestDTO) {
-    const foundUser = await this.userService.findDocument({ email: requestBody.email });
+    const foundUser = await this.userService.findDocument({
+      email: requestBody.email,
+    });
 
     if (!foundUser) throw new NotFoundException('User not found');
 
@@ -117,6 +147,10 @@ export class AuthorizationController {
       to: foundUser.email,
     };
 
-    this.emailService.sendEmail(mailOptions, EMAIL_TYPES.FORGOT_PASSWORD, 'google.com');
+    this.emailService.sendEmail(
+      mailOptions,
+      EMAIL_TYPES.FORGOT_PASSWORD,
+      'google.com',
+    );
   }
 }

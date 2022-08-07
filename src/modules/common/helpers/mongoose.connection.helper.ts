@@ -5,7 +5,9 @@ export function getMongooseConnection() {
   const DB_PORT = process.env.DB_PORT;
 
   if (DB_NAME && DB_USERNAME && DB_PASSWORD) {
-    const url = `mongodb://${DB_USERNAME}:${encodeURIComponent(DB_PASSWORD)}@localhost:${DB_PORT ?? '27017'}/${DB_NAME}`;
+    const url = `mongodb://${DB_USERNAME}:${encodeURIComponent(
+      DB_PASSWORD,
+    )}@localhost:${DB_PORT ?? '27017'}/${DB_NAME}`;
     console.log(url);
     return url;
   } else {

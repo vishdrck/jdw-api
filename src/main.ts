@@ -23,7 +23,8 @@ async function bootstrap() {
 
   app.useGlobalPipes(
     new ValidationPipe({
-      disableErrorMessages: configService.get(CONFIG_KEYS.NODE_ENV) === 'production',
+      disableErrorMessages:
+        configService.get(CONFIG_KEYS.NODE_ENV) === 'production',
       whitelist: true,
       // transform: true,
     }),
@@ -42,7 +43,12 @@ async function bootstrap() {
   const port = configService.get<number>(CONFIG_KEYS.PORT);
 
   await app.listen(port);
-  logsHelper.info(`The ${configService.get(CONFIG_KEYS.SYSTEM_NAME)} backend is listening on port ${configService.get(CONFIG_KEYS.PORT)}`, 'NestApplication');
+  logsHelper.info(
+    `The ${configService.get(
+      CONFIG_KEYS.SYSTEM_NAME,
+    )} backend is listening on port ${configService.get(CONFIG_KEYS.PORT)}`,
+    'NestApplication',
+  );
 }
 
 bootstrap();

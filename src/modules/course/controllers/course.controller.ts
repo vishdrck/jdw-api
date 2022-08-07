@@ -1,4 +1,15 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UnprocessableEntityException, Put, NotFoundException } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UnprocessableEntityException,
+  Put,
+  NotFoundException,
+} from '@nestjs/common';
 import { CourseService } from '../services/course.service';
 import { CreateCourseDto } from '../dto/create-course.dto';
 import { UpdateCourseDto } from '../dto/update-course.dto';
@@ -23,7 +34,8 @@ export class CourseController {
   })
   @Post()
   async create(@Body() requestBody: CreateCourseDto) {
-    if (!requestBody) throw new UnprocessableEntityException('Valid data required');
+    if (!requestBody)
+      throw new UnprocessableEntityException('Valid data required');
 
     const newCourse: ICourse = {
       ...requestBody,
@@ -53,7 +65,9 @@ export class CourseController {
   })
   @Put(':id')
   async update(@Param(':id') id: string, @Body() requestBody: UpdateCourseDto) {
-    const foundCourse = await this.courseService.findById(new Types.ObjectId(id));
+    const foundCourse = await this.courseService.findById(
+      new Types.ObjectId(id),
+    );
 
     if (!foundCourse) throw new NotFoundException('Course not found');
 
@@ -87,7 +101,10 @@ export class CourseController {
   async deleteMultiple(@Body() requestBody: DeleteMultipleCoursesDTO) {
     const isDeleted = await this.courseService
       ?.getModel()
-      ?.updateMany({ _id: { $in: requestBody.courseIds } }, { $set: { isDeleted: true } })
+      ?.updateMany(
+        { _id: { $in: requestBody.courseIds } },
+        { $set: { isDeleted: true } },
+      )
       ?.exec();
 
     if (isDeleted) {
@@ -111,7 +128,9 @@ export class CourseController {
   })
   @Get(':id')
   async get(@Param(':id') id: string) {
-    const foundCourse = await this.courseService.findById(new Types.ObjectId(id));
+    const foundCourse = await this.courseService.findById(
+      new Types.ObjectId(id),
+    );
 
     if (!foundCourse) throw new NotFoundException('Course not found');
 

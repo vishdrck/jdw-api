@@ -3,14 +3,14 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { DB_COLLECTIONS } from 'src/modules/common/constants/enums';
 import { CommonService } from 'src/modules/common/services/common.service';
-import { IPayment, IPaymentModel } from '../models/payment.model';
+import { IPaymentSlip, IPaymentSlipModel } from '../models/payment-slip.model';
 
 @Injectable()
-export class PaymentService extends CommonService<IPayment> {
+export class PaymentSlipService extends CommonService<IPaymentSlip> {
   constructor(
-    @InjectModel(DB_COLLECTIONS.PAYMENTS)
-    paymentModel: Model<IPaymentModel>,
+    @InjectModel(DB_COLLECTIONS.PAYMENT_SLIPS)
+    paymentSlipModel: Model<IPaymentSlipModel>,
   ) {
-    super(paymentModel, DB_COLLECTIONS.PAYMENTS);
+    super(paymentSlipModel, DB_COLLECTIONS.PAYMENT_SLIPS);
   }
 }

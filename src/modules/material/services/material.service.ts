@@ -6,7 +6,10 @@ import { CommonService } from 'src/modules/common/services/common.service';
 import { IMaterial, IMaterialModel } from '../models/materials.model';
 
 @Injectable()
-export class MaterialService extends CommonService<IMaterial> implements OnModuleInit {
+export class MaterialService
+  extends CommonService<IMaterial>
+  implements OnModuleInit
+{
   constructor(
     @InjectModel(DB_COLLECTIONS.MATERIALS)
     materialModel: Model<IMaterialModel>,

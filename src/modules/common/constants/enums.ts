@@ -26,6 +26,8 @@ export enum DB_COLLECTIONS {
   MATERIALS = 'materials',
   ATTENDANCE = 'attendances',
   ENROLLMENT = 'enrollments',
+  PAYMENTS = 'payments',
+  PAYMENT_SLIPS = 'payment_slips',
 }
 
 export enum EMAIL_TYPES {

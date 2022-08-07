@@ -6,7 +6,10 @@ import { AttendanceController } from './controllers/attendance.controller';
 import { AttendanceService } from './services/attendance.service';
 
 @Module({
-  imports: [mongooseForFeatureHelper.getCollections([DB_COLLECTIONS.ATTENDANCE]), EnrollmentModule],
+  imports: [
+    mongooseForFeatureHelper.getCollections([DB_COLLECTIONS.ATTENDANCE]),
+    EnrollmentModule,
+  ],
   controllers: [AttendanceController],
   providers: [AttendanceService],
   exports: [AttendanceService],

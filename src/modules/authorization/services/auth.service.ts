@@ -19,7 +19,10 @@ export class AuthService {
     const payload = {
       userID: user._id,
     };
-    const access_token = await this.signToken(payload, this.config.get(CONFIG_KEYS.ACCESS_TOKEN_EXPIRY_DURATION));
+    const access_token = await this.signToken(
+      payload,
+      this.config.get(CONFIG_KEYS.ACCESS_TOKEN_EXPIRY_DURATION),
+    );
     return { access_token };
   }
 }

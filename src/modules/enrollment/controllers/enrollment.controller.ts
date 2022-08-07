@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, NotFoundException } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  NotFoundException,
+} from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { Types } from 'mongoose';
 import { ApiDocGenerator } from 'src/modules/common/decorators/api-doc-generator.decorator';
@@ -26,7 +35,9 @@ export class EnrollmentController {
       enrolledDate: new Date(Date.now()),
     };
 
-    const enrollementOnDatabase = await this.enrollmentService.addDocument(newEnrollement);
+    const enrollementOnDatabase = await this.enrollmentService.addDocument(
+      newEnrollement,
+    );
 
     if (enrollementOnDatabase) {
       return {

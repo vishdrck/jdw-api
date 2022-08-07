@@ -1,5 +1,8 @@
 import { Document, Schema } from 'mongoose';
-import { BaseEntitySchemaContent, IBaseEntity } from 'src/modules/common/models/base-entity.model';
+import {
+  BaseEntitySchemaContent,
+  IBaseEntity,
+} from 'src/modules/common/models/base-entity.model';
 
 export interface IIntake extends IBaseEntity {
   name: string;

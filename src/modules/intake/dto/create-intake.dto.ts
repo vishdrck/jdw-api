@@ -1,5 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsNotEmpty, IsDate, IsBoolean, IsOptional } from 'class-validator';
+import {
+  IsString,
+  IsNotEmpty,
+  IsDate,
+  IsBoolean,
+  IsOptional,
+} from 'class-validator';
 
 export class CreateIntakeDto {
   @ApiProperty({ example: 'Japan Language' })

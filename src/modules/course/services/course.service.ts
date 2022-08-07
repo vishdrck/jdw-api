@@ -8,7 +8,10 @@ import { UpdateCourseDto } from '../dto/update-course.dto';
 import { ICourse, ICourseModel } from '../model/course.model';
 
 @Injectable()
-export class CourseService extends CommonService<ICourse> implements OnModuleInit {
+export class CourseService
+  extends CommonService<ICourse>
+  implements OnModuleInit
+{
   constructor(
     @InjectModel(DB_COLLECTIONS.COURSES)
     courseModel: Model<ICourseModel>,

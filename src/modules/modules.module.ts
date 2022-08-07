@@ -10,9 +10,23 @@ import { MaterialModule } from './material/material.module';
 import { AttendanceModule } from './attendance/attendance.module';
 import { EnrollmentModule } from './enrollment/enrollment.module';
 import { PaymentModule } from './payment/payment.module';
+import { PaymentSlipModule } from './payment-slip/payment-slip.module';
 
 @Module({
-  imports: [UsersModule, CommonModule, AuthorizationModule, InstituteModule, CourseModule, IntakeModule, CourseIntakeModule, MaterialModule, AttendanceModule, EnrollmentModule, PaymentModule],
+  imports: [
+    UsersModule,
+    CommonModule,
+    AuthorizationModule,
+    InstituteModule,
+    CourseModule,
+    IntakeModule,
+    CourseIntakeModule,
+    MaterialModule,
+    AttendanceModule,
+    EnrollmentModule,
+    PaymentModule,
+    PaymentSlipModule,
+  ],
   exports: [],
 })
 export class ModulesModule {}

@@ -1,4 +1,15 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UnprocessableEntityException, Put, NotFoundException } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UnprocessableEntityException,
+  Put,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateIntakeDto } from '../dto/create-intake.dto';
 import { UpdateIntakeDto } from '../dto/update-intake.dto';
 import { ApiTags } from '@nestjs/swagger';
@@ -22,7 +33,8 @@ export class IntakeController {
   })
   @Post()
   async create(@Body() requestBody: CreateIntakeDto) {
-    if (!requestBody) throw new UnprocessableEntityException('Valid data required');
+    if (!requestBody)
+      throw new UnprocessableEntityException('Valid data required');
 
     const newIntake: IIntake = {
       ...requestBody,
@@ -52,10 +64,13 @@ export class IntakeController {
   })
   @Put(':id')
   async update(@Param(':id') id: string, @Body() requestBody: CreateIntakeDto) {
-    const foundIntake = await this.intakeService.findById(new Types.ObjectId(id));
+    const foundIntake = await this.intakeService.findById(
+      new Types.ObjectId(id),
+    );
     if (!foundIntake) throw new NotFoundException('Intake not found');
 
-    if (!requestBody) throw new UnprocessableEntityException('Valid data required');
+    if (!requestBody)
+      throw new UnprocessableEntityException('Valid data required');
 
     const newIntake: IIntake = {
       ...foundIntake,
@@ -86,8 +101,11 @@ export class IntakeController {
   })
   @Delete(':id')
   async delete(@Param(':id') id: string) {
-    const foundIntake = await this.intakeService.findById(new Types.ObjectId(id));
-    if (!foundIntake) throw new UnprocessableEntityException('Valid data required');
+    const foundIntake = await this.intakeService.findById(
+      new Types.ObjectId(id),
+    );
+    if (!foundIntake)
+      throw new UnprocessableEntityException('Valid data required');
 
     foundIntake.isDeleted = true;
 
@@ -115,8 +133,11 @@ export class IntakeController {
   })
   @Get(':id')
   async get(@Param(':id') id: string) {
-    const foundIntake = await this.intakeService.findById(new Types.ObjectId(id));
-    if (!foundIntake) throw new UnprocessableEntityException('Valid data required');
+    const foundIntake = await this.intakeService.findById(
+      new Types.ObjectId(id),
+    );
+    if (!foundIntake)
+      throw new UnprocessableEntityException('Valid data required');
 
     if (foundIntake) {
       return {

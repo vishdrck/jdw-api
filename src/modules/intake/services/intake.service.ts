@@ -8,7 +8,10 @@ import { UpdateIntakeDto } from '../dto/update-intake.dto';
 import { IIntake, IIntakeModel } from '../model/intake.model';
 
 @Injectable()
-export class IntakeService extends CommonService<IIntake> implements OnModuleInit {
+export class IntakeService
+  extends CommonService<IIntake>
+  implements OnModuleInit
+{
   constructor(
     @InjectModel(DB_COLLECTIONS.INTAKES)
     intakeModel: Model<IIntakeModel>,

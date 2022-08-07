@@ -6,7 +6,10 @@ import { MaterialController } from './controllers/material.controller';
 import { MaterialService } from './services/material.service';
 
 @Module({
-  imports: [mongooseForFeatureHelper.getCollections([DB_COLLECTIONS.MATERIALS]), IntakeModule],
+  imports: [
+    mongooseForFeatureHelper.getCollections([DB_COLLECTIONS.MATERIALS]),
+    IntakeModule,
+  ],
   controllers: [MaterialController],
   providers: [MaterialService],
   exports: [MaterialService],

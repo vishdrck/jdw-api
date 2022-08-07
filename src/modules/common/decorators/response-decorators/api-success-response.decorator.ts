@@ -2,7 +2,9 @@ import { applyDecorators, Type } from '@nestjs/common';
 import { ApiExtraModels, ApiOkResponse, getSchemaPath } from '@nestjs/swagger';
 import { SuccessResponseDTO } from '../../dto/success-response.dto';
 
-export const ApiSuccessResponse = <DataDto extends Type<unknown>>(dataDto?: DataDto) => {
+export const ApiSuccessResponse = <DataDto extends Type<unknown>>(
+  dataDto?: DataDto,
+) => {
   if (dataDto) {
     return applyDecorators(
       ApiExtraModels(SuccessResponseDTO, dataDto),

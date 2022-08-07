@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, NotFoundException } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  NotFoundException,
+} from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { Types } from 'mongoose';
 import { ApiDocGenerator } from 'src/modules/common/decorators/api-doc-generator.decorator';
@@ -12,7 +21,10 @@ import { AttendanceService } from '../services/attendance.service';
 @ApiTags('attendances')
 @Controller('attendance')
 export class AttendanceController {
-  constructor(private readonly attendanceService: AttendanceService, private readonly enrollementService: EnrollmentService) {}
+  constructor(
+    private readonly attendanceService: AttendanceService,
+    private readonly enrollementService: EnrollmentService,
+  ) {}
 
   @ApiDocGenerator({
     summary: 'Create an attendance',
@@ -23,14 +35,19 @@ export class AttendanceController {
   })
   @Post()
   async create(@Body() requestBody: CreateAttendanceDto) {
-    const foundEnrollement = await this.enrollementService.findById(new Types.ObjectId(requestBody?.enrollmentId));
-    if (!foundEnrollement) throw new NotFoundException('Requested enrollement not found');
+    const foundEnrollement = await this.enrollementService.findById(
+      new Types.ObjectId(requestBody?.enrollmentId),
+    );
+    if (!foundEnrollement)
+      throw new NotFoundException('Requested enrollement not found');
 
     const newAttendance: IAttendance = {
       ...requestBody,
     };
 
-    const attendanceOnDatabase = await this.attendanceService.addDocument(newAttendance);
+    const attendanceOnDatabase = await this.attendanceService.addDocument(
+      newAttendance,
+    );
 
     if (attendanceOnDatabase) {
       return {
@@ -55,7 +72,10 @@ export class AttendanceController {
   async deleteMultiple(@Body() requestBody: DeleteMultipleAttendancesDTO) {
     const isDeleted = await this.attendanceService
       ?.getModel()
-      ?.updateMany({ _id: { $in: requestBody.attendanceIds } }, { $set: { isDeleted: true } })
+      ?.updateMany(
+        { _id: { $in: requestBody.attendanceIds } },
+        { $set: { isDeleted: true } },
+      )
       ?.exec();
 
     if (isDeleted) {
@@ -79,7 +99,9 @@ export class AttendanceController {
   })
   @Get(':id')
   async get(@Param(':id') id: string) {
-    const foundAttendance = await this.attendanceService.findById(new Types.ObjectId(id));
+    const foundAttendance = await this.attendanceService.findById(
+      new Types.ObjectId(id),
+    );
 
     if (!foundAttendance) throw new NotFoundException('Attendance not found');
 

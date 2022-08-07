@@ -21,7 +21,9 @@ function bootstrap() {
         } else if (cmd.getCommand().toLowerCase() == argument) {
           try {
             await cmd.execute();
-            console.log(`[Command] ${cmd.getCommand()} - ${new Date().toLocaleString()} LOG Command executed`);
+            console.log(
+              `[Command] ${cmd.getCommand()} - ${new Date().toLocaleString()} LOG Command executed`,
+            );
           } catch (err) {
             console.log(err);
           }

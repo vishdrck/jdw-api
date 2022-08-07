@@ -8,7 +8,10 @@ import { UsersService } from 'src/modules/users/services/users.service';
 import { JwtPayloadDTO } from '../dto/jwt-payload.dto';
 
 @Injectable()
-export class JWTAccessBearerStrategy extends PassportStrategy(Strategy, 'JWT_ACCESS_BEARER') {
+export class JWTAccessBearerStrategy extends PassportStrategy(
+  Strategy,
+  'JWT_ACCESS_BEARER',
+) {
   constructor(config: ConfigService, private userService: UsersService) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),

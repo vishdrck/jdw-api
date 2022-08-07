@@ -1,6 +1,9 @@
 import { Document, PopulatedDoc, Schema, Types } from 'mongoose';
 import { DB_COLLECTIONS } from 'src/modules/common/constants/enums';
-import { BaseEntitySchemaContent, IBaseEntity } from 'src/modules/common/models/base-entity.model';
+import {
+  BaseEntitySchemaContent,
+  IBaseEntity,
+} from 'src/modules/common/models/base-entity.model';
 import { ICourse } from 'src/modules/course/model/course.model';
 import { IIntake } from 'src/modules/intake/model/intake.model';
 

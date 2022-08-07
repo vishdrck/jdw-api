@@ -1,4 +1,15 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Put, NotFoundException, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Put,
+  NotFoundException,
+  UseGuards,
+} from '@nestjs/common';
 import { UsersService } from '../services/users.service';
 import { CreateUserDTO } from '../dto/create-user.dto';
 import { UpdateUserDto } from '../dto/update-user.dto';
@@ -20,7 +31,8 @@ export class UsersController {
 
   @ApiDocGenerator({
     summary: 'Update an user',
-    unprocessableEntityResponseDescription: 'Invalid user id or invalid user details',
+    unprocessableEntityResponseDescription:
+      'Invalid user id or invalid user details',
     forbiddenResponseDescription: 'Account Blocked',
     successResponseDTO: UpdateUserDto,
     useDTOValidations: true,
@@ -29,9 +41,16 @@ export class UsersController {
   })
   @UseGuards(JwtAuthGuard)
   @Put(':id')
-  async update(@LoggedUser() loggedUser: IUser, @Param('id') id: string, @Body() requestBody: UpdateUserDto) {
+  async update(
+    @LoggedUser() loggedUser: IUser,
+    @Param('id') id: string,
+    @Body() requestBody: UpdateUserDto,
+  ) {
     console.log(loggedUser);
-    const existUser = await this.usersService.findDocument({ _id: id, isDeleted: false });
+    const existUser = await this.usersService.findDocument({
+      _id: id,
+      isDeleted: false,
+    });
 
     if (existUser) throw new NotFoundException('Requested user not found');
 
@@ -70,7 +89,10 @@ export class UsersController {
   })
   @Delete(':id')
   async delete(@Param('id') id: string) {
-    const existUser = await this.usersService.findDocument({ _id: id, isDeleted: false });
+    const existUser = await this.usersService.findDocument({
+      _id: id,
+      isDeleted: false,
+    });
 
     if (existUser) throw new NotFoundException('Requested user not found');
 
@@ -99,7 +121,10 @@ export class UsersController {
   async deleteMultiple(@Body() requestBody: DeleteMultipleUsersDTO) {
     const response = await this.usersService
       ?.getModel()
-      ?.updateMany({ _id: { $in: requestBody.userIds } }, { $set: { isDeleted: true } })
+      ?.updateMany(
+        { _id: { $in: requestBody.userIds } },
+        { $set: { isDeleted: true } },
+      )
       ?.exec();
     if (response) {
       return {

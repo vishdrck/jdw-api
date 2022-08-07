@@ -5,7 +5,9 @@ import { IUser } from 'src/modules/users/models/user.model';
 
 import { CreateAttendanceDto } from './create-attendance.dto';
 
-export class CreateResponseAttendanceDto extends PartialType(CreateAttendanceDto) {
+export class CreateResponseAttendanceDto extends PartialType(
+  CreateAttendanceDto,
+) {
   @ApiProperty({ example: '56d4f34f5sfd' })
   _id: Types.ObjectId;
 

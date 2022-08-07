@@ -1,4 +1,7 @@
-import { BaseEntitySchemaContent, IBaseEntity } from 'src/modules/common/models/base-entity.model';
+import {
+  BaseEntitySchemaContent,
+  IBaseEntity,
+} from 'src/modules/common/models/base-entity.model';
 import { Document, Schema, SchemaTypes, Types } from 'mongoose';
 
 export interface IRefreshToken extends IBaseEntity {

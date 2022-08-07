@@ -22,7 +22,13 @@ const validatePassword = (password: string): boolean => {
   const specialCharacterTest = /[^a-zA-Z0-9]/.test(password);
   const lengthTest = password.length > 7;
 
-  return lowerCaseTest && uppperCaseTest && numberTest && specialCharacterTest && lengthTest;
+  return (
+    lowerCaseTest &&
+    uppperCaseTest &&
+    numberTest &&
+    specialCharacterTest &&
+    lengthTest
+  );
 };
 
 export default { hash, compare, validatePassword };

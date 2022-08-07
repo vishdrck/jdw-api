@@ -1,4 +1,14 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, NotFoundException, Put } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  NotFoundException,
+  Put,
+} from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { Types } from 'mongoose';
 import { ApiDocGenerator } from 'src/modules/common/decorators/api-doc-generator.decorator';
@@ -13,7 +23,10 @@ import { MaterialService } from '../services/material.service';
 @ApiTags('materials')
 @Controller('material')
 export class MaterialController {
-  constructor(private readonly materialService: MaterialService, private readonly intakeService: IntakeService) {}
+  constructor(
+    private readonly materialService: MaterialService,
+    private readonly intakeService: IntakeService,
+  ) {}
 
   @ApiDocGenerator({
     summary: 'Delete multiple courses',
@@ -24,15 +37,20 @@ export class MaterialController {
   })
   @Post()
   async create(@Body() requestBody: CreateMaterialDto) {
-    const foundIntake = await this.intakeService.findById(new Types.ObjectId(requestBody.intakeId));
+    const foundIntake = await this.intakeService.findById(
+      new Types.ObjectId(requestBody.intakeId),
+    );
 
-    if (!foundIntake) throw new NotFoundException('Requested intake is not found');
+    if (!foundIntake)
+      throw new NotFoundException('Requested intake is not found');
 
     const newMaterial: IMaterial = {
       ...requestBody,
     };
 
-    const materialOnDatabase = await this.materialService.addDocument(newMaterial);
+    const materialOnDatabase = await this.materialService.addDocument(
+      newMaterial,
+    );
 
     if (materialOnDatabase) {
       return {
@@ -56,7 +74,10 @@ export class MaterialController {
   async deleteMultiple(@Body() requestBody: DeleteMultipleMaterialsDTO) {
     const isDeleted = await this.materialService
       ?.getModel()
-      ?.updateMany({ _id: { $in: requestBody.materialIds } }, { $set: { isDeleted: true } })
+      ?.updateMany(
+        { _id: { $in: requestBody.materialIds } },
+        { $set: { isDeleted: true } },
+      )
       ?.exec();
 
     if (isDeleted) {
@@ -79,7 +100,9 @@ export class MaterialController {
   })
   @Get(':id')
   async get(@Param(':id') id: string) {
-    const foundMaterial = await this.materialService.findById(new Types.ObjectId(id));
+    const foundMaterial = await this.materialService.findById(
+      new Types.ObjectId(id),
+    );
 
     if (!foundMaterial) throw new NotFoundException('Material not found');
 
@@ -95,8 +118,13 @@ export class MaterialController {
     useDTOValidations: true,
   })
   @Put(':id')
-  async update(@Param(':id') id: string, @Body() requestBody: UpdateMaterialDto) {
-    const foundMaterial = await this.materialService.findById(new Types.ObjectId(id));
+  async update(
+    @Param(':id') id: string,
+    @Body() requestBody: UpdateMaterialDto,
+  ) {
+    const foundMaterial = await this.materialService.findById(
+      new Types.ObjectId(id),
+    );
 
     if (!foundMaterial) throw new NotFoundException('Course not found');
 
@@ -105,7 +133,9 @@ export class MaterialController {
       ...requestBody,
     };
 
-    const materialOnDatabase = await this.materialService.updateDocument(newMaterial);
+    const materialOnDatabase = await this.materialService.updateDocument(
+      newMaterial,
+    );
 
     if (materialOnDatabase) {
       return {

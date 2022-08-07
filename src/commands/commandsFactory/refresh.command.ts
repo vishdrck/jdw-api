@@ -5,7 +5,8 @@ import 'dotenv';
 export class RefreshDBCommand extends BaseCommad {
   constructor() {
     const commandName = 'refresh';
-    const help = '--refresh [Drop the database. Database name must be configured in .env file.]';
+    const help =
+      '--refresh [Drop the database. Database name must be configured in .env file.]';
     super(commandName, help);
   }
 
@@ -49,9 +50,13 @@ export class RefreshDBCommand extends BaseCommad {
     const DB_HOSTNAME = process.env.DB_HOSTNAME;
 
     if (DB_NAME && DB_USERNAME && DB_PASSWORD) {
-      return `mongodb://${DB_USERNAME}:${encodeURIComponent(DB_PASSWORD)}@${DB_HOSTNAME ?? 'localhost'}:${DB_PORT ?? '27017'}/${DB_NAME}`;
+      return `mongodb://${DB_USERNAME}:${encodeURIComponent(DB_PASSWORD)}@${
+        DB_HOSTNAME ?? 'localhost'
+      }:${DB_PORT ?? '27017'}/${DB_NAME}`;
     } else {
-      return `mongodb://${DB_HOSTNAME ?? 'localhost'}:${DB_PORT ?? '27017'}/${DB_NAME}`;
+      return `mongodb://${DB_HOSTNAME ?? 'localhost'}:${
+        DB_PORT ?? '27017'
+      }/${DB_NAME}`;
     }
   }
 }

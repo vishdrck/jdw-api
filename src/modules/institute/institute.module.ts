@@ -6,8 +6,11 @@ import { DB_COLLECTIONS } from 'src/modules/common/constants/enums';
 import mongooseForFeatureHelper from '../common/helpers/mongoose-for-feature.helper';
 
 @Module({
-  imports: [mongooseForFeatureHelper.getCollections([DB_COLLECTIONS.INSTITUTES])],
+  imports: [
+    mongooseForFeatureHelper.getCollections([DB_COLLECTIONS.INSTITUTES]),
+  ],
   controllers: [InstituteController],
   providers: [InstituteService],
+  exports: [InstituteService],
 })
 export class InstituteModule {}
