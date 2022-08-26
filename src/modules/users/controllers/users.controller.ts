@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Put, NotFoundException, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Put, NotFoundException, UseGuards, Query } from '@nestjs/common';
 import { UsersService } from '../services/users.service';
 import { CreateUserDTO } from '../dto/create-user.dto';
 import { UpdateUserDto } from '../dto/update-user.dto';
@@ -12,11 +12,14 @@ import { UserResponseDTO } from '../dto/user-response.dto';
 import { Types } from 'mongoose';
 import { JwtAuthGuard } from 'src/modules/authorization/guards/jwt-auth.guard';
 import { LoggedUser } from 'src/modules/common/decorators/logged-user.decorator';
+import { GetUsersQueryDTO } from '../dto/get-users.query.dto';
+import queryBuilder from 'smc-mongoose-query-builder-helper';
+import { ResponseService } from 'src/modules/common/services/response.service';
 
 @ApiTags('users')
 @Controller('users')
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(private readonly usersService: UsersService, private responseService: ResponseService) {}
 
   @ApiDocGenerator({
     summary: 'Update an user',
@@ -130,7 +133,27 @@ export class UsersController {
       data: user,
     };
   }
+
+  @ApiDocGenerator({
+    summary: 'Get all user',
+    forbiddenResponseDescription: 'Account Blocked',
+    useDTOValidations: true,
+  })
+  @Get('')
+  async getAllUSers(@Query() queryParams: GetUsersQueryDTO) {
+    let commonFilters = {};
+    commonFilters = queryBuilder.patternMatcher(commonFilters, 'first_name', queryParams.firstName);
+    commonFilters = queryBuilder.patternMatcher(commonFilters, 'last_name', queryParams.lastName);
+    commonFilters = queryBuilder.patternMatcher(commonFilters, 'email', queryParams.email);
+    commonFilters = queryBuilder.objectIdMatcher(commonFilters, '_id', queryParams.id);
+    commonFilters = queryBuilder.objectIdMatcher(commonFilters, 'courseID', queryParams.courseID);
+
+    const results = await this.usersService.filterDocuments(commonFilters);
+
+    return this.responseService.getPaginatedResponse(results, queryParams.start || 0, queryParams.size || 15);
+  }
 }
+
 function LoggedIdentity() {
   throw new Error('Function not implemented.');
 }
